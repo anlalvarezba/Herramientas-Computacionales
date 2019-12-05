@@ -2,7 +2,6 @@
 #include <iostream>
 #include <cstdio>
 
-
  
 int main()
 {
@@ -42,7 +41,8 @@ int main()
       M[i] += 1.0*X[n];
       printf("%3d ", X[n]);
     }
-     printf("%5.3f ", M[i]/npaths);
+    printf("%5.3f  ", M[i]/npaths);
+    printf("%5.3f  ", (M[i]*M[i])/npaths);
      printf(" \n");
      
     }
