@@ -12,18 +12,22 @@ int main()
   double ran=0.0;
   // int x=0;
   int *X = new int [npaths];
+  float *M = new float [nsteps];
 
   for(int i=0; i<npaths; i++){
     X[i]=0;
   }
 
+   for(int i=0; i<nsteps; i++){
+    M[i]=0.0;
+  }
   
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_real_distribution<> dis(0.0, 1.0);
 
     for(int i=0; i<nsteps; i++){
-       printf("%3d  ", i);
+       printf("%3d  ", i+1);
       
     for (int n = 0; n <npaths; ++n) {
       ran= dis(gen);
@@ -35,8 +39,11 @@ int main()
       else{
 	X[n] +=1;
 	}
+      M[i] += 1.0*X[n];
       printf("%3d ", X[n]);
     }
+     printf("%5.3f ", M[i]/npaths);
      printf(" \n");
+     
     }
 }
