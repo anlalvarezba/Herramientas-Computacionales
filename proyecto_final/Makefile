@@ -1,14 +1,18 @@
-all: ramdom_example.x ejecutar
+all: ejecutar #random_example.x random_example.txt
 
-%.x: ramdom_example.cpp
-	g++ -std=c++11 -Wall $< -o ramdom_example.x
+ejecutar: run.sh
+	./$<
 
-ejecutar:
-	./ramdom_example.x
+%.x: random_2d.cpp
+	g++ -std=c++17 -Wall -g -fsanitize=address -fsanitize=leak -fsanitize=undefined  $< -o random_2d.x
 
+%.txt: random_2d.x
+	./$< > $@ 
 
+profiling:
+	gprof 1_test_gprof.x gmon.out>analisis.txt
 
 
 .PHONY: clean
 clean:
-	rm -f *.x *~ a.out *.pdf *.gp *.dat 
+	rm -f *.x  *~ a.out *#  *.pdf 0 *.gp *.dat 3 gmon.out
