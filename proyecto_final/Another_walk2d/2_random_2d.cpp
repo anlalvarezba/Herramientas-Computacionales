@@ -6,9 +6,10 @@
 int main()
 {
 
-  int nsteps=5;
-  int npaths=3;
+  int nsteps=100;
+  int npaths=5000;
   double ran=0.0;
+  int cont = 1;
   
   //int sumax = 0;
   //int sumay = 0;
@@ -17,11 +18,19 @@ int main()
   float M [nsteps*npaths];
   float N [nsteps*npaths];
   float R [nsteps*npaths*2];
+  float T [nsteps];
 
   // for(int i=0; i<nsteps; i++){
   // X[i]=0;
   // Y[i]=0;
   //}
+
+  for(int i=0; i<nsteps; i++){
+   T[i]=0;
+  }
+
+
+  
 
    for(int i=0; i<nsteps*npaths; i++){
     M[i]=0.0;
@@ -92,8 +101,11 @@ int main()
     for(int j=0; j<nsteps; j++){
       for(int i=j; i<npaths*nsteps; i += nsteps){
        printf("%5.0f %5.0f  ", R[i], R[i + nsteps*npaths]);
+       T[j] += ((R[i]*R[i]) + ( R[i + nsteps*npaths]* R[i + nsteps*npaths]));
       }
+      printf("%5.3f %3d ", T[j]/npaths, cont);
        printf(" \n");
+       cont++;
     }
 
 
