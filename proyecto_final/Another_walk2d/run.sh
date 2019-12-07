@@ -24,7 +24,7 @@ set grid
 #set logscale x 2
 set key left top box
 #unset key
-plot [][] "$name.txt" u 2:3 title "$Name_walk 1" w lp ps $VAR lt rgb "red" pointtype 7, \
+plot [][] "$name.txt" u 1:2 title "$Name_walk 1" w lp ps $VAR lt rgb "red" pointtype 7, \
      	 # "$name.txt" u 1:3  title "$Name_walk 2" w lp ps $VAR lt rgb "blue" pointtype 7, \
 	 # "$name.txt" u 1:5  title "$Name_walk 3" w lp ps $VAR lt rgb "green" pointtype 7
 
@@ -39,7 +39,7 @@ set grid
 #set mytics 2
 #set logscale x 2
 set key right bottom box
-plot [][] "$name.txt" u 1:12 w lp ps $VAR lt rgb "red" pointtype 7
+plot [][] "$name.txt" u 22:21 w lp ps $VAR lt rgb "red" pointtype 7
 replot x w lp ps $VAR lt rgb "blue" pointtype 7
 
 
@@ -48,6 +48,6 @@ replot x w lp ps $VAR lt rgb "blue" pointtype 7
 EOF
 gnuplot $name.gp
 
-#okular Rand_walk_vs_steps.pdf &
-#okular Mean_Rand_walk_vs_steps.pdf &
+okular Rand_walk_vs_steps.pdf &
+okular Mean_Rand_walk_vs_steps.pdf &
 
