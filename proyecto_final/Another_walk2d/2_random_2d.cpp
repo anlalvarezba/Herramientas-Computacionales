@@ -10,11 +10,11 @@ int main()
   int npaths=1;
   double ran=0.0;
   // int x=0;
-  int *X = new int [nsteps];
-  int *Y = new int [nsteps];
-  float *M = new float [nsteps*npaths];
-  float *N = new float [nsteps*npaths];
-  float *R = new float [nsteps*npaths*2];
+  int X [nsteps];
+  int Y [nsteps];
+  float M [nsteps*npaths];
+  float N [nsteps*npaths];
+  float R [nsteps*npaths*2];
 
   for(int i=0; i<nsteps; i++){
     X[i]=0;
@@ -86,9 +86,9 @@ int main()
      
     
 
-    delete [] X;
-    delete [] Y;
-    delete [] M;
-    delete [] N;
-    delete [] R;
+     // delete [] X;
+     // delete [] Y;
+     //delete [] M;
+     //delete [] N;
+     //delete [] R;
 }
