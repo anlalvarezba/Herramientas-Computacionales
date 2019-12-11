@@ -6,10 +6,12 @@
 int main()
 {
 
-  int nsteps=10;
-  int npaths=5;
+  int nsteps=100;
+  int npaths=500;
   double ran=0.0;
-  int cont = 1;
+  int cont = 0;
+  int cont1 = nsteps;
+ 
   
   //int sumax = 0;
   //int sumay = 0;
@@ -42,8 +44,11 @@ int main()
      for(int i=0; i<nsteps*npaths*2; i++){
     R[i]=0.0;
     }
-  
-    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+
+     // int seed=1;
+     // std::mt19937 gen(seed);
+     
+     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_real_distribution<> dis(0.0, 1.0);
 
@@ -52,16 +57,15 @@ int main()
       int x=0;
       int y=0;
       //int sum=0;
-
-     
+      int cont2 = 0;     
       
-    for (int n = 0; n <nsteps; ++n) {
+    for (int n = 1; n <nsteps; ++n) {
 
       int a =1;
       int b =1;
       int c =1;
       int d =1;
-      
+      cont2 += 1;
       ran= dis(gen);
       int sum1=1;
       int sum2=1;
@@ -72,7 +76,7 @@ int main()
         // double in [1, 2). Each call to dis(gen) generates a new random double
 
       for(int j=i*nsteps; j<n+i*nsteps; j++){
-	 
+	  
 	   if((x-1 == M[j]) && (y == N[j])){
 	       a=0;
 	       sum1 = 0;
@@ -94,6 +98,8 @@ int main()
       if((a+b+c+d)==0){
 	prob=0.0;
 	n=nsteps;
+	x=0;
+	y=0;
 	}
 
       prob = 1.0/(a+b+c+d);
@@ -114,63 +120,14 @@ int main()
 
 	       M[n+i*nsteps] = 1.0*x;
 	       N[n+i*nsteps] = 1.0*y;
-	  
-
 	   
+    }
 
 
-
-
-/*
-	
-	 for(int j=i*nsteps; j<n+i*nsteps; j++){
-	   if((M[n+i*nsteps] == M[j]) && (N[n+i*nsteps] == N[j])){
-	       sum +=1;
-	     }
-        }
-
-
-	  if((M[n+i*nsteps] == 0) && (N[n+i*nsteps] == 0)){
-	       sum +=1;     
-	     }
-
-	  
-	 if(0<sum && sum<4){
-	   
-	   // M[n+i*nsteps] = M[n+i*nsteps-1];
-	   //N[n+i*nsteps] = N[n+i*nsteps-1];
-	   n -=1;
-	   //if(M[n+i*nsteps] != M[n+i*nsteps-1]){
-	   //M[n+i*nsteps] = M[n+i*nsteps-1]);
-	   //}
-	   //if( N[n+i*nsteps] !=  N[n+i*nsteps-1]){
-	   //N[n+i*nsteps] = N[n+i*nsteps-1]);
-	   // }
-	   
-	 }
-
-	 if(sum==4){
-	   //if(M[n+i*nsteps] != M[n+i*nsteps-1]){
-	   //M[n+i*nsteps] = M[n+i*nsteps-1]);
-	   //}
-	   //if( N[n+i*nsteps] !=  N[n+i*nsteps-1]){
-	   //N[n+i*nsteps] = N[n+i*nsteps-1]);
-	   //}
-	   M[n+i*nsteps] = M[n+i*nsteps-1];
-	   N[n+i*nsteps] = N[n+i*nsteps-1];
-	   n=nsteps;
-	 }
-
-*/
-	
-	//R[i] += 1.0*((X[n]*X[n]) +(Y[n]*Y[n])) ;
-	
-	//printf("%3d %3d ", X[n], Y[n]);
+    if(cont2 < cont1){
+      cont1 = cont2;
     }
     
-    // printf("%5.3f %5.3f  ", M[i]/npaths, N[i]/npaths);
-    // printf("%5.3f %5.3f  ", (M[i]*M[i])/npaths,  (N[i]*N[i])/npaths);
-    // printf("%5.3f  ", R[i]/npaths);
 
     for(int n=0; n<nsteps*npaths; n++){
       R[n]=M[n];
@@ -184,26 +141,21 @@ int main()
     
     }
 
-    /*
-     for(int j=0; j<nsteps*npaths; j++){
-       printf("%5.3f %5.3f  ", R[j], R[j+nsteps*npaths]);
-       printf(" \n");
-    }
-    */
 
-    for(int j=0; j<nsteps; j++){
+    for(int j=0; j<cont1; j++){
       for(int i=j; i<npaths*nsteps; i += nsteps){
-       printf("%5.0f %5.0f  ", R[i], R[i + nsteps*npaths]);
+	//printf("%5.0f %5.0f  ", R[i], R[i + nsteps*npaths]);
        T[j] += ((R[i]*R[i]) + ( R[i + nsteps*npaths]* R[i + nsteps*npaths]));
       }
-      printf("%5.3f %3d ", T[j]/npaths, cont);
-       printf(" \n");
+      printf("%3d %5.3f ", cont, T[j]/npaths);
+      // printf(" \n");
        cont++;
-    }
-
-
-
-    
+       for(int i=j; i<npaths*nsteps; i += nsteps){
+	printf("%5.0f %5.0f  ", R[i], R[i + nsteps*npaths]);
+	//T[j] += ((R[i]*R[i]) + ( R[i + nsteps*npaths]* R[i + nsteps*npaths]));
+      }
+        printf(" \n");
+    } 
     
      //  printf(" \n");
      
