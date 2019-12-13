@@ -1,0 +1,4 @@
+# fit f(x) "3version_random_2d.txt" using (log($1)):(log($2)) via a,b
+# final sum of squares of residuals : 0.0232047
+a               = 1.44937997759433      
+b               = 0.00386586622346776   
